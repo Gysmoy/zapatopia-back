@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zapatopia-config
+  namespace: produccion
+data:
+  mysql_db: ZAPATOPIA
+  mysql_user: root
+  mysql_password: ''
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zapatopia-pv-claim
+  namespace: produccion 
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: zapatopia-db
+  namespace: produccion 
+spec:
+  template:
+    metadata:
+      labels:
+        app: zapatopia-db
+    spec:
+      volumes:
+        - name: zapatopia-storage
+          persistentVolumeClaim:
+            claimName: zapatopia-pv-claim
+      containers:
+        - image: postgres
+          name: zapatopia-db
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: zapatopia-config
+                  key: postgres_db          
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: zapatopia-config
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: zapatopia-config
+                  key: postgres_password                 
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 3306
+              name: zapatopia-db
+          volumeMounts:
+            - name: zapatopia-storage
+              mountPath: /var/lib/postgresql/data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zapatopia-db-service
+  namespace: produccion 
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+  selector:
+    app: zapatopia-db
