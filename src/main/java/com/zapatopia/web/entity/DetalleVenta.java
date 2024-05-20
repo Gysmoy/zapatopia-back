@@ -1,6 +1,7 @@
 package com.zapatopia.web.entity;
 
 import lombok.Data;
+import com.zapatopia.web.entity.Venta;
 
 import java.math.BigDecimal;
 
@@ -15,8 +16,9 @@ public class DetalleVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "venta_id")
-    private Integer ventaId;
+    @ManyToOne
+    @JoinColumn(name = "ventaId")
+    private Venta ventaId;
 
     @Column(name = "stock_id")
     private Integer stockId;
