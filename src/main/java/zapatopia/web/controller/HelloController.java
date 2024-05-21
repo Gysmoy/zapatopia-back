@@ -12,17 +12,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("/saludo")
 public class HelloController {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/saludo", method = RequestMethod.GET)
-    @ApiOperation(value = "Permite obtener todos los clientes", response = ResponseEntity.class, produces = "application/json", tags = {
-            "clientes"})
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ApiOperation(
+            value = "Permite obtener todos los clientes",
+            response = ResponseEntity.class,
+            produces = "application/json",
+            tags = {
+                    "clientes"
+            })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Operacion correcta", response = String.class),
-            @ApiResponse(code = 400, message = "Datos de entrada incorrecto", response = String.class)})
+            @ApiResponse(code = 400, message = "Datos de entrada incorrecto", response = String.class)
+    })
     public ResponseEntity<String> clientesClientesGet() {
         ResponseEntity<String> response = null;
         String saludo = "Hola mundo";
