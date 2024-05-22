@@ -16,7 +16,7 @@ import zapatopia.web.services.AuditorAwareImpl;
 
 import java.util.Collections;
 
-@SpringBootApplication(scanBasePackages = {"zapatopia.web.jpa", "zapatopia.web.controller", "zapatopia.web.repository", "zapatopia.web.services"})
+@SpringBootApplication(scanBasePackages = {"zapatopia.web.jpa", "zapatopia.web.controller", "zapatopia.web.repository", "zapatopia.web.services", "zapatopia.web.config"})
 public class WebApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
