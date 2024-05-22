@@ -1,9 +1,15 @@
 package zapatopia.web.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import zapatopia.web.jpa.MarcaJpa;
 import zapatopia.web.models.MainResponse;
 import zapatopia.web.services.MarcaService;
@@ -18,6 +24,17 @@ public class MarcaController {
     private MarcaService marcaService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ApiOperation(
+            value = "Permite obtener todas las marcas",
+            response = ResponseEntity.class,
+            produces = "application/json",
+            tags = {
+                    "brands"
+            })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Operacion correcta", response = MainResponse.class),
+            @ApiResponse(code = 400, message = "Datos de entrada incorrecto", response = MainResponse.class)
+    })
     public ResponseEntity<MainResponse> obtenerMarcasGet() {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
@@ -38,6 +55,17 @@ public class MarcaController {
     }
 
     @RequestMapping(value = "/{marcaid}", method = RequestMethod.GET)
+    @ApiOperation(
+            value = "Permite obtener una marca por id",
+            response = ResponseEntity.class,
+            produces = "application/json",
+            tags = {
+                    "clientes"
+            })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Operacion correcta", response = MainResponse.class),
+            @ApiResponse(code = 400, message = "Datos de entrada incorrecto", response = MainResponse.class)
+    })
     public ResponseEntity<MainResponse> obtenerMarcaByIdGet(
             @PathVariable("marcaid") long marcaid
     ) {
@@ -62,50 +90,6 @@ public class MarcaController {
             entity = new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return entity;
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<MainResponse> guardarMarcaPost(
-            @RequestBody MarcaJpa marca
-    ) {
-        ResponseEntity<MainResponse> entity = null;
-        MainResponse response = new MainResponse();
-
-        try {
-            MarcaJpa marcaGuardada = marcaService.guardarMarca(marca);
-
-            response.setStatus(200);
-            response.setMessage("Operacion correcta");
-            response.setData(marcaGuardada);
-            entity = new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            response.setStatus(400);
-            response.setMessage(e.getMessage());
-            entity = new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        return entity;
-    }
-
-    @RequestMapping(value = "/{marcaid}", method = RequestMethod.DELETE)
-    public ResponseEntity<MainResponse> eliminarMarcaDelete(
-            @PathVariable("marcaid") long marcaid
-    ) {
-        ResponseEntity<MainResponse> entity = null;
-        MainResponse response = new MainResponse();
-
-        try {
-            marcaService.eliminarMarca(marcaid);
-
-            response.setStatus(200);
-            response.setMessage("Operacion correcta");
-            entity = new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            response.setStatus(400);
-            response.setMessage(e.getMessage());
-            entity = new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
         return entity;
     }
 

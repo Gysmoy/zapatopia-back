@@ -7,6 +7,4 @@ import java.util.List;
 public interface MarcaService {
     List<MarcaJpa> obtenerMarcas();
     MarcaJpa obtenerMarca(long id);
-    MarcaJpa guardarMarca(MarcaJpa marca);
-    void eliminarMarca(long id);
 }
