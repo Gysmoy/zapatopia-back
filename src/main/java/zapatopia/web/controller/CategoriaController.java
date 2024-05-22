@@ -8,29 +8,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zapatopia.web.jpa.CategoriaJpa;
-import zapatopia.web.jpa.MarcaJpa;
 import zapatopia.web.models.MainResponse;
-import zapatopia.web.services.MarcaService;
+import zapatopia.web.services.CategoriaService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/brands")
-public class MarcaController {
+@RequestMapping("/api/categories")
+public class CategoriaController {
 
     @Autowired
-    private MarcaService marcaService;
+    private CategoriaService categoriaService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<MainResponse> obtenerMarcasGet() {
+    public ResponseEntity<MainResponse> obtenerCategoriasGet() {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
 
         try {
-            List<MarcaJpa> marcas = marcaService.obtenerMarcas();
+            List<CategoriaJpa> categorias = categoriaService.obtenerCategorias();
             response.setStatus(200);
             response.setMessage("Operacion correcta");
-            response.setData(marcas);
+            response.setData(categorias);
             entity = new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             response.setStatus(400);
@@ -41,23 +40,23 @@ public class MarcaController {
         return entity;
     }
 
-    @RequestMapping(value = "/{marcaid}", method = RequestMethod.GET)
-    public ResponseEntity<MainResponse> obtenerMarcaByIdGet(
-            @PathVariable("marcaid") long marcaid
+    @RequestMapping(value = "/{categoriaid}", method = RequestMethod.GET)
+    public ResponseEntity<MainResponse> obtenerCategoriaByIdGet(
+            @PathVariable("categoriaid") long categoriaid
     ) {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
 
         try {
-            MarcaJpa marca = marcaService.obtenerMarca(marcaid);
-            if (marca == null) {
+            CategoriaJpa categoria = categoriaService.obtenerCategoria(categoriaid);
+            if (categoria == null) {
                 response.setStatus(404);
-                response.setMessage("No se ha encontrado la marca");
+                response.setMessage("No se ha encontrado la categoria");
                 entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             } else {
                 response.setStatus(200);
                 response.setMessage("Operacion correcta");
-                response.setData(marca);
+                response.setData(categoria);
                 entity = new ResponseEntity<>(response, HttpStatus.OK);
             }
         } catch (Exception e) {
@@ -70,18 +69,18 @@ public class MarcaController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<MainResponse> crearMarcaPost(
-            @RequestBody MarcaJpa marca
+    public ResponseEntity<MainResponse> crearCategoriaPost(
+            @RequestBody CategoriaJpa categoria
     ) {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
 
         try {
-            MarcaJpa marcaGuardada = marcaService.guardarMarca(marca);
+            CategoriaJpa categoriaGuardada = categoriaService.guardarCategoria(categoria);
 
             response.setStatus(200);
             response.setMessage("Operacion correcta");
-            response.setData(marcaGuardada);
+            response.setData(categoriaGuardada);
             entity = new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -93,14 +92,14 @@ public class MarcaController {
         return entity;
     }
 
-    @RequestMapping(value = "/{marcaid}", method = RequestMethod.DELETE)
-    public ResponseEntity<MainResponse> eliminarMarcaDelete(
-            @PathVariable("marcaid") long marcaid
+    @RequestMapping(value = "/{categoriaid}", method = RequestMethod.DELETE)
+    public ResponseEntity<MainResponse> eliminarCategoriaDelete(
+            @PathVariable("categoriaid") long categoriaid
     ) {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
         try {
-            marcaService.eliminarMarca(marcaid);
+            categoriaService.eliminarCategoria(categoriaid);
             response.setStatus(200);
             response.setMessage("Operacion correcta");
             entity = new ResponseEntity<>(response, HttpStatus.OK);
