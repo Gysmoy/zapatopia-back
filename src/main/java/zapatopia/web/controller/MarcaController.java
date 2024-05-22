@@ -17,7 +17,7 @@ import zapatopia.web.services.MarcaService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/marca")
+@RequestMapping("/api/brands")
 public class MarcaController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class MarcaController {
             response = ResponseEntity.class,
             produces = "application/json",
             tags = {
-                    "clientes"
+                    "brands"
             })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Operacion correcta", response = MainResponse.class),
