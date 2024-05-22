@@ -33,7 +33,6 @@ public class MarcaServiceImpl implements MarcaService {
     @Override
     public MarcaJpa guardarMarca(MarcaJpa marca) {
         if (marca.getId() == 0) {
-            logger.info("Creando nueva marca");
             marca.setFechaCreacion(LocalDateTime.now());
         }
         marca.setFechaModificacion(LocalDateTime.now());
