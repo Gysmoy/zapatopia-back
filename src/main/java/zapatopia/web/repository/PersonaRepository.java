@@ -6,4 +6,5 @@ import zapatopia.web.jpa.PersonaJpa;
 
 @Repository
 public interface PersonaRepository extends JpaRepository<PersonaJpa, Long> {
+    Boolean existsByNombres(String nombres);
 }

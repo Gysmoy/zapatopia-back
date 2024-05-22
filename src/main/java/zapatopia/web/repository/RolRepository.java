@@ -5,4 +5,5 @@ import zapatopia.web.jpa.RolJpa;
 
 @Repository
 public interface RolRepository extends JpaRepository<RolJpa, Long> {
+    Boolean existsByRol(String rol);
 }

@@ -5,5 +5,5 @@ import zapatopia.web.jpa.UsuarioJpa;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioJpa, Long> {
     UsuarioJpa findByUsuario(String usuario);
-
+    Boolean existsByUsuario(String usuario);
 }
