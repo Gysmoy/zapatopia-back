@@ -27,7 +27,7 @@ public class StockController {
         try {
             StockJpa savedStock = stockService.subscribeToStock(stock);
             response.setStatus(200);
-            response.setMessage("Subscribed successfully");
+            response.setMessage("Suscrito existosamente");
             response.setData(savedStock);
             entity = new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -50,7 +50,7 @@ public class StockController {
         try {
             stockService.notifySubscribers(productId);
             response.setStatus(200);
-            response.setMessage("Subscribers notified successfully");
+            response.setMessage("Suscriptores notificados exitosamente");
             entity = new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             response.setStatus(400);
@@ -69,7 +69,7 @@ public class StockController {
         try {
             List<StockJpa> subscriptions = stockService.getAllSubscriptions();
             response.setStatus(200);
-            response.setMessage("Operation successful");
+            response.setMessage("Operación exitosamente");
             response.setData(subscriptions);
             entity = new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
