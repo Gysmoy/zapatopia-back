@@ -28,7 +28,7 @@ public class StockServiceImpl implements StockService {
     public void notifySubscribers(long productId) {
         List<StockJpa> subscriptions = stockRepository.findAllByProductId(productId);
         for (StockJpa subscription : subscriptions) {
-            sendEmail(subscription.getEmail(), "Product Back in Stock", "The product you subscribed to is back in stock.");
+            sendEmail(subscription.getEmail(), "Producto Nuevamente con Stock", "El producto al que te suscribiste ha vuelto a tener stock.");
         }
     }
 
