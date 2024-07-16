@@ -4,28 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import zapatopia.web.jpa.AvisoStockJpa;
 import zapatopia.web.jpa.StockJpa;
 import zapatopia.web.models.MainResponse;
-import zapatopia.web.services.StockService;
+import zapatopia.web.services.AvisoStockService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/stock")
-public class StockController {
+public class AvisoStockController {
 
     @Autowired
-    private StockService stockService;
+    private AvisoStockService stockService;
 
     @RequestMapping(value = "/subscribe", method = RequestMethod.POST)
     public ResponseEntity<MainResponse> subscribeToStock(
-            @RequestBody StockJpa stock
+            @RequestBody AvisoStockJpa stock
     ) {
         ResponseEntity<MainResponse> entity = null;
         MainResponse response = new MainResponse();
 
         try {
-            StockJpa savedStock = stockService.subscribeToStock(stock);
+            AvisoStockJpa savedStock = stockService.subscribeToStock(stock);
             response.setStatus(200);
             response.setMessage("Suscrito existosamente");
             response.setData(savedStock);
@@ -67,7 +68,7 @@ public class StockController {
         MainResponse response = new MainResponse();
 
         try {
-            List<StockJpa> subscriptions = stockService.getAllSubscriptions();
+            List<AvisoStockJpa> subscriptions = stockService.getAllSubscriptions();
             response.setStatus(200);
             response.setMessage("Operación exitosamente");
             response.setData(subscriptions);

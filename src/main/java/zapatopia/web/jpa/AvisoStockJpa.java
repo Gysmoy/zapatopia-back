@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Audited
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "STOCK_SUBSCRIPTIONS")
-public class StockJpa {
+public class AvisoStockJpa {
 
     private static final long serialVersionUID = 1234567L;
 
@@ -22,6 +22,9 @@ public class StockJpa {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "client_id")
+    private long clientId;
 
     @Column(name = "product_id")
     private long productId;

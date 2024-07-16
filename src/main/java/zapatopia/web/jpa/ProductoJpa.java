@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -48,6 +49,10 @@ public class ProductoJpa {
 
     @Column(name = "stock_general")
     private Integer stockGeneral;
+
+    @OneToMany
+    @JoinColumn(name = "stockId")
+    private List<StockJpa> stock;
 
     @CreatedDate
     @Column(name = "fecha_creacion")
