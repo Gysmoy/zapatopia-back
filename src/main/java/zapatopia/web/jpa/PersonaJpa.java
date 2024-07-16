@@ -41,6 +41,9 @@ public class PersonaJpa {
     @Column(name = "direccion")
     private String direccion;
 
+    @Column(name = "correo_electronico")
+    private String correoElectronico;
+
     @Column(name = "numero_celular")
     private String numeroCelular;
 

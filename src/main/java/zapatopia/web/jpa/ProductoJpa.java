@@ -1,5 +1,6 @@
 package zapatopia.web.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.envers.Audited;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,15 +26,18 @@ public class ProductoJpa {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "categoriaId")
+    @JoinColumn(name = "categoria_id")
     private CategoriaJpa categoria;
 
     @ManyToOne
-    @JoinColumn(name = "marcaId")
+    @JoinColumn(name = "marca_id")
     private MarcaJpa marca;
 
     @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "descripcion", length = 500)
+    private String descripcion;
 
     @Column(name = "precio_compra")
     private Double precioCompra;
@@ -46,8 +51,15 @@ public class ProductoJpa {
     @Column(name = "genero")
     private String genero;
 
+    @Column(name = "path_foto")
+    private String pathFoto;
+
     @Column(name = "stock_general")
     private Integer stockGeneral;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<StockJpa> stockAlmacenes;
 
     @CreatedDate
     @Column(name = "fecha_creacion")

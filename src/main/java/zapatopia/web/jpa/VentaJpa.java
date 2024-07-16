@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,8 +25,11 @@ public class VentaJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "codigo_pedido")
+    private String codigoPedido;
+
     @ManyToOne
-    @JoinColumn(name = "clienteId")
+    @JoinColumn(name = "cliente_id")
     private ClienteJpa cliente;
 
     @ManyToOne
@@ -35,6 +39,9 @@ public class VentaJpa {
     @ManyToOne
     @JoinColumn(name = "estadoId")
     private EstadoJpa estado;
+
+    @OneToMany(mappedBy="venta", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DetalleVentasJpa> detalle;
 
     @CreatedDate
     @Column(name = "fecha_creacion")

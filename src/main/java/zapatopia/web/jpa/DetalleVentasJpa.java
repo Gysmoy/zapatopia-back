@@ -24,11 +24,11 @@ public class DetalleVentasJpa {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "ventaId")
+    @JoinColumn(name = "venta_id")
     private VentaJpa venta;
 
     @ManyToOne
-    @JoinColumn(name = "stockId")
+    @JoinColumn(name = "stock_id")
     private StockJpa stock;
 
     @Column(name = "cantidad")
@@ -44,4 +44,14 @@ public class DetalleVentasJpa {
     @LastModifiedDate
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
+
+    @Override
+    public String toString() {
+        return "DetalleVentasJpa{" +
+                "id=" + id +
+                ", producto=" + ((stock == null || stock.getProducto() == null) ? "null" : stock.getProducto().getNombre()) +
+                ", cantidad=" + cantidad +
+                ", precio=" + precio +
+                '}';
+    }
 }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dddddd;
+        }
+        .header img {
+            max-width: 150px;
+        }
+        .content {
+            text-align: center;
+        }
+        .content p {
+            text-align: left;
+        }
+        .content h1 {
+            color: #333333;
+        }
+        .content p {
+            color: #666666;
+        }
+        .order-details {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .order-details th, .order-details td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        .order-details th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #aaaaaa;
+            font-size: 12px;
+            border-top: 1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="cid:zapatopiaLogo" alt="Zapatopia Logo">
+    </div>
+    <div class="content">
+        <h1>¡Su pedido ha sido recibido!</h1>
+        <p>Estimado <span th:text="${nombre}">[Nombre del Usuario]</span>,</p>
+        <p>Nos complace informarle que su pedido con el código <strong th:text="${codigoPedido}">[Código del Pedido]</strong> ha sido recibido exitosamente.</p>
+        <p>Gracias por confiar en <strong>Zapatopia</strong>. A continuación, encontrará el detalle de su pedido.</p>
+        <h2>Detalle del Pedido</h2>
+        <table class="order-details">
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${detallePedido}">
+                    <td th:text="${item.stock.producto.nombre}">Producto</td>
+                    <td th:text="${item.cantidad}">Cantidad</td>
+                    <td th:text="${item.precio}">Precio</td>
+                    <td th:text="${item.cantidad * item.precio}">Total</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Si tiene alguna pregunta, no dude en contactarnos.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Zapatopia. Todos los derechos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

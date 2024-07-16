@@ -9,14 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import zapatopia.web.services.AuditorAwareImpl;
 
 import java.util.Collections;
 
 @SpringBootApplication(scanBasePackages = {"zapatopia.web.jpa", "zapatopia.web.controller", "zapatopia.web.repository", "zapatopia.web.services", "zapatopia.web.config"})
+@EnableAsync
 public class WebApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
@@ -50,3 +54,4 @@ class JpaConfiguration {
         return new AuditorAwareImpl();
     }
 }
+

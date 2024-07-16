@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "CLIENTES")
-public class ClienteJpa {
+@Table(name = "OFERTAS")
+public class OfertaJpa {
 
     private static final long serialVersionUID = 1234567L;
 
@@ -24,14 +24,14 @@ public class ClienteJpa {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "persona_id")
-    private PersonaJpa persona;
+    @JoinColumn(name = "producto_id")
+    private ProductoJpa producto;
 
-    @Column(name= "flag_notificar")
-    private String flagNotificar;
+    @Column(name = "cantidad_entregar")
+    private Integer cantidadEntregar;
 
-    @Column(name = "medio_preferido")
-    private String medioPreferido;
+    @Column(name = "cantidad_comprar")
+    private Integer cantidadComprar;
 
     @CreatedDate
     @Column(name = "fecha_creacion")
@@ -40,4 +40,5 @@ public class ClienteJpa {
     @LastModifiedDate
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
+
 }

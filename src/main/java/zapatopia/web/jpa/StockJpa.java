@@ -24,11 +24,11 @@ public class StockJpa {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "almacenId")
+    @JoinColumn(name = "almacen_id")
     private AlmacenJpa almacen;
 
     @ManyToOne
-    @JoinColumn(name = "productoId")
+    @JoinColumn(name = "producto_id")
     private ProductoJpa producto;
 
     @Column(name = "cantidad")

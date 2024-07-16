@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Oferta Especial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #2196F3;
+            color: #ffffff;
+        }
+        .header img {
+            max-width: 150px;
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+        .content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ff4081;
+        }
+        .content p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .offer-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            margin: auto;
+        }
+        .offer {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            z-index: 1;
+        }
+        .content-offer {
+            position: relative;
+            color: #e14949;
+            font-size: 100px;
+            font-weight: bold;
+            z-index: 2;
+            text-align: center;
+            line-height: 150px;
+        }
+        .product {
+            margin-top: 20px;
+        }
+        .product-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        .description {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .button {
+            background-color: #ff4081;
+            color: #ffffff !important;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #888888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="cid:zapatopiaLogo" alt="Zapatopia">
+        <h1>¡Oferta Especial!</h1>
+    </div>
+    <div class="content">
+        <h1>Hola, <span th:text="${nombre}">Cliente</span>!</h1>
+        <p>¡Tenemos una oferta especial para ti!</p>
+        <div class="offer-container">
+            <div class="offer">
+                <div class="content-offer" th:text="${cantidadEntregar} + 'x' + ${cantidadComprar}">3x2</div>
+            </div>
+        </div>
+        <div class="product">
+            <div class="product-name" th:text="${nombreProducto}">Nombre del Producto</div>
+            <img src="cid:imagenProducto" alt="Producto en Oferta" class="product-image">
+        </div>
+        <p class="description" th:text="'Aprovecha nuestra increíble oferta de ' + ${cantidadEntregar} + ' x '+ ${cantidadComprar} + '. Compra ' + ${cantidadComprar} + ' y llévate ' + ${cantidadEntregar} + ' productos por el mismo precio. ¡No te lo pierdas!'"></p>
+        <a href="http://localhost:3000/filters" class="button">¡Compra ahora!</a>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Zapatopia. Todos los derechos reservados.</p>
+    </div>
+</div>
+</body>
+</html>
