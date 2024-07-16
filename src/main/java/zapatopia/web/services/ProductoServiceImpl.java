@@ -79,6 +79,17 @@ public class ProductoServiceImpl implements ProductoService{
 
     @Override
     public ProductoJpa crearProducto(ProductoJpa producto) {
+
+        //aca hay que implementar la logica de el gusrdado del detalle de stock
+        //tambien el guardado de las fotos en la carpeta img
+        return productoRepository.save(producto);
+
+    }
+
+    @Override
+    public ProductoJpa actualizarProducto(ProductoJpa producto, long id) {
+
+        //modificar para el correcto guardado del detalle
         ProductoJpa productoJpa = productoRepository.findById(producto.getId()).orElse(new ProductoJpa());
         productoJpa.setNombre(producto.getNombre());
         productoJpa.setCategoria(producto.getCategoria());
@@ -94,12 +105,6 @@ public class ProductoServiceImpl implements ProductoService{
         }
         producto.setFechaModificacion(LocalDateTime.now());
         return productoRepository.save(producto);
-
-    }
-
-    @Override
-    public ProductoJpa actualizarProducto(ProductoJpa producto, long id) {
-        return null;
     }
 
     @Override
