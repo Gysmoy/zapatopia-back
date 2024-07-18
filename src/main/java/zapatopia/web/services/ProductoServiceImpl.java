@@ -10,6 +10,7 @@ import zapatopia.web.jpa.ProductoJpa;
 import zapatopia.web.repository.ProductoRepository;
 import zapatopia.web.repository.StockRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,23 +69,46 @@ public class ProductoServiceImpl implements ProductoService{
 
     @Override
     public ProductoJpa obtenerProducto(long id) {
-        return null;
+        return productoRepository.findById(id).isPresent() ? productoRepository.findById(id).get() : null;
+    }
+
+    @Override
+    public List<ProductoJpa> obtenerProductosPorListaId(List<Long> listaId) {
+        return productoRepository.findByIdIn(listaId);
     }
 
     @Override
     public ProductoJpa crearProducto(ProductoJpa producto) {
-        //productoRepository.save(producto);
 
-        return producto;
+        //aca hay que implementar la logica de el gusrdado del detalle de stock
+        //tambien el guardado de las fotos en la carpeta img
+        return productoRepository.save(producto);
+
     }
 
     @Override
     public ProductoJpa actualizarProducto(ProductoJpa producto, long id) {
-        return null;
+
+        //modificar para el correcto guardado del detalle
+        ProductoJpa productoJpa = productoRepository.findById(producto.getId()).orElse(new ProductoJpa());
+        productoJpa.setNombre(producto.getNombre());
+        productoJpa.setCategoria(producto.getCategoria());
+        productoJpa.setMarca(producto.getMarca());
+        productoJpa.setTalla(producto.getTalla());
+        productoJpa.setColor(producto.getColor());
+        productoJpa.setGenero(producto.getGenero());
+
+        Long stockGeneral = 0L;
+
+        if (producto.getId() == 0) {
+            producto.setFechaCreacion(LocalDateTime.now());
+        }
+        producto.setFechaModificacion(LocalDateTime.now());
+        return productoRepository.save(producto);
     }
 
     @Override
     public void eliminarProducto(long id) {
-
+        productoRepository.deleteById(id);
     }
 }
