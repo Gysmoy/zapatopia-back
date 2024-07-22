@@ -42,6 +42,6 @@ public class AvisoStockServiceImpl implements AvisoStockService {
 //        message.setSubject(subject);
 //        message.setText(text);
 //        mailSender.send(message);
-        System.out.println("Email sent to " + to);
+        System.out.println("Correo envio a" + to);
     }
 }
